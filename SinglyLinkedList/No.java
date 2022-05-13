@@ -1,7 +1,4 @@
-// package listaligadasimples;
-
 public class No {
-
     int valor;
     No prox;
 

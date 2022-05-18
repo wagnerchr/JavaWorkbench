@@ -8,23 +8,27 @@ class DoublyLinkedList {
 
     public static void main(String[] args) {
         
-
-        // inserir(3);
-        // inserir(535423);
-        // inserir(666);
-        // inserir(542);
-        // removeUltimo();
-        insereOrdenado(10);
-        insereOrdenado(2);
-        insereOrdenado(3);
-        insereOrdenado(5);
-        insereOrdenado(4);
-        insereOrdenado(1);
-
-        removePrimeiro();
-        removeUltimo();
-        removeValor(3);
+        inserir(666);
+        inserir(3);
+        inserir(535423);
+        inserir(666);
+        inserir(666);
         
+        inserir(542);
+        inserir(666);
+       
+        // removeUltimo();
+        // insereOrdenado(10);
+        // insereOrdenado(2);
+        // insereOrdenado(3);
+        // insereOrdenado(5);
+        // insereOrdenado(4);
+        // insereOrdenado(1);
+
+        // removePrimeiro();
+        // removeUltimo();
+        // removeValor(3);
+        removeTodos(666);
         exibir();
     
         
@@ -75,9 +79,8 @@ class DoublyLinkedList {
             fim = null;
         } else {
             inicio = inicio.prox; // Novo Inicio
-            inicio.ant = null;  // Remove antifo Inicio
+            inicio.ant = null;  // Remove antigo Inicio
         }
-
     }
 
     public static void insereOrdenado(int x) {
@@ -108,16 +111,24 @@ class DoublyLinkedList {
         }
     }
 
-    public static void removeValor(int x) {
+    public static boolean removeValor(int x) {
+        boolean removido = false; // Variável para checar se removeValor removeu alguem
+
         if(inicio == null)
             System.out.println("Lista está vazia, não há nada para remover");
+        else if(inicio.valor == x) {
+            removido = true;
+            removePrimeiro();
+        }
         else {
             No temp = inicio;
             while(temp != null && temp.valor != x) // Loop até encontrar o valor
                 temp = temp.prox;
             if(temp == null)
-                System.out.println("Valor não encontrado na Lista"); // Caso não encontre o valor
+                System.out.println("Valor "+ x +" não encontrado ou já removido da Lista"); // Caso não encontre o valor
             else {
+                removido = true;
+
                 if (temp == fim) {
                     fim = fim.ant;
                     fim.prox = null;
@@ -127,10 +138,12 @@ class DoublyLinkedList {
                 }
             }
         }
+    
+        return removido;
     }
 
     public static void removeTodos(int x) {
-        //
+        while(removeValor(x)){}  
     }
-    
+
 }

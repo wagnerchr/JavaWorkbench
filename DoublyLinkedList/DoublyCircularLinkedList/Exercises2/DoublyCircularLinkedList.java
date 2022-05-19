@@ -17,6 +17,7 @@ public class DoublyCircularLinkedList {
        insereOrdenado(1);
        insereOrdenado(10);
        insereOrdenado(8);
+        removeValor(2);
        exibir();
        
         
@@ -107,12 +108,29 @@ public class DoublyCircularLinkedList {
     }
 
     public static void removeValor(int x) {
-        
+        if(Vazio())
+            System.out.println("Lista vazia, não há valor para remover");
+        else {
+            No temp = inicio;
+            while(temp != fim  && temp.valor != x) 
+                temp = temp.prox;
+            if(inicio == fim) 
+                inicio = fim = null;
+            else {
+                if(temp == inicio) 
+                    removePrimeiro();
+                else {
+                    if(temp == fim)
+                        removeUltimo();
+                    else {
+                        temp.prox.ant = temp.ant;
+                        temp.ant.prox = temp.prox;
+                    }
+                }
+                
+            }
+        }  
     }
-    
-
-
-
     public static boolean Vazio() {
         if(inicio == null) {
             return true;

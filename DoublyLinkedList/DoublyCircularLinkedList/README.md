@@ -13,6 +13,7 @@
     newNo.next = start;   
     start.prev = newNo;
     newNo.prev = end;
+    end.next = newNo;
     end = end.next;
   }
 }

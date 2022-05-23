@@ -14,3 +14,15 @@ public class No {
     this.next = null;
 }}
 ```
+## Insert(int x)
+```
+No newNo = new No(x);
+if(start == null) 
+  start = newNo;
+else {
+  No temp = start;
+  while(temp.next != null) 
+    temp = temp.next;
+  temp.next = newNo;
+}
+```

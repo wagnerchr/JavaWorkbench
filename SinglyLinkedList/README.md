@@ -26,3 +26,16 @@ else {
   temp.next = newNo;
 }
 ```
+## Display( )
+```
+if(start == null) 
+  System.out.println("List is empty");
+else {
+    No temp = start;
+    while(temp.next != null) {
+     System.out.println(temp.value)
+     temp = temp.next
+    }
+    System.out.println(temp.value) // Print last value
+}
+```

@@ -17,6 +17,7 @@ Now the list have a "tail" or end.
         }
 ```
 ### Display( )
+```
   if(start == null)
     System.out.println("Lista está vazia, não há nada para exibir :(");
   else {
@@ -27,3 +28,4 @@ Now the list have a "tail" or end.
         }
         System.out.println(temp.value) // Print last value
 }
+```

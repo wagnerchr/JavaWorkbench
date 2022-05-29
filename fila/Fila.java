@@ -1,3 +1,5 @@
+package fila;
+
 public class Fila {
     
     public static int N = 5;
@@ -28,7 +30,7 @@ public class Fila {
     }
 
     public static void Enfileirar(int x) {
-        if(Cheia() == true) 
+        if(Cheia()) 
             System.out.println("A fila está cheia, não é possível Enfileirar mais");
         else {
         ultimo++;
@@ -56,15 +58,13 @@ public class Fila {
     public static boolean Vazia() {
         if (total == 0) 
             return true;
-        else
-            return false;
+        return false;
     }
 
     public static boolean Cheia() {
         if(total == N) 
             return true;
-        else 
-            return false;
+        return false;
     }
 
     public static int Tamanho() {

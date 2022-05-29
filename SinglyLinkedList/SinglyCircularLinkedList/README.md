@@ -20,3 +20,16 @@ if(start == null) {
   }
 }
 ```
+## Display( )
+```
+if(start == null )
+   System.out.println("List is empty");
+else {
+   No temp = start;
+      while(temp.next != start) {
+         System.out.println(temp.value);
+         temp = temp.next;
+      }
+   System.out.println(temp.value);  // Print last value
+}
+```

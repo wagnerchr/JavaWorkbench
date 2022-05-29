@@ -31,10 +31,11 @@ public static int total;
     total--;
   }
 ```
-## int Size() {
+## int Size() 
+```
   System.out.println("The size of the Queue is: ")
   return total;
-}
+```
 
 ## boolean Full()
 ```

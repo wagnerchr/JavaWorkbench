@@ -1,4 +1,4 @@
-package Node2;
+package DoublyLinkedList.Node2;
 
 public class NoLivro {
     public String autor, titulo, edicao, local, editora;

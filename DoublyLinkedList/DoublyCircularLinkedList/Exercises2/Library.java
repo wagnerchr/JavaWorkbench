@@ -1,6 +1,6 @@
-package DoublyCircularLinkedList.Exercises2;
+package DoublyLinkedList.DoublyCircularLinkedList.Exercises2;
 import java.util.Scanner;
-import Node2.NoLivro;
+import DoublyLinkedList.Node2.NoLivro;
 
 class AtividadeLivros {
 

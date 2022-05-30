@@ -1,5 +1,5 @@
-package Exercises;
-import Node.No;
+package SinglyLinkedList.Exercises;
+import SinglyLinkedList.Node.No;
 
 public class ListaLigadaSimples {
 

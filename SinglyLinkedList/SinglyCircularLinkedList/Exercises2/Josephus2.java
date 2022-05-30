@@ -1,5 +1,5 @@
-package  SinglyCircularLinkedList;
-    import Node.No;
+package SinglyLinkedList.SinglyCircularLinkedList.Exercises2;
+    import SinglyLinkedList.Node.No;
 
 public class Josephus2 {
     static No inicio;

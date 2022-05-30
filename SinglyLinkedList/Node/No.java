@@ -1,4 +1,4 @@
-package Node;
+package SinglyLinkedList.Node;
 
 public class No {
 

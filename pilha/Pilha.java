@@ -1,4 +1,5 @@
-public class Pilha {
+package pilha;
+class Pilha {
 
     public static int N = 5;               // Tamanho Pilha
     public static int vet[] = new int[N]; // Pilha
@@ -6,20 +7,16 @@ public class Pilha {
     
     public static void main(String[] args) {
         
-        empilhar(5);
-        empilhar(8);
-        // empilhar(4);
-        // empilhar(4444);
-        empilhar(47);
-        empilhar(20); // Já está cheio
-        
         empilhar(57);
-
-        // desempilhar();
-      
+        empilhar(49);
+        desempilhar();
+        desempilhar();
+        empilhar(5);
+        empilhar(67);
+        chutar();
+        empilhar(9);
        
 
-        chutar();
         System.out.println(tamanho());
         System.out.println(cheio());
         System.out.println(vazio());
@@ -46,7 +43,7 @@ public class Pilha {
         
         if(//indiceTopo == -1
             vazio() == true) 
-            System.out.println("Lista está vazia, não tem o que desempilhar :( ");
+            System.out.println("Pilha está vazia, não tem o que desempilhar :( ");
         else {
             vet[indiceTopo] = vet[indiceTopo--];
         }
@@ -54,12 +51,15 @@ public class Pilha {
 
     // Função para dar uma bica na pilha e desempilhar ela toda
     public static void chutar() { 
+        if(vazio() == true) {
+            System.out.println("Pilha está vazia, não tem o que chutar :( ");
+        } else {
         for(int i = 0; i < indiceTopo + 1;) {
             System.out.println("Desempilhando... " + vet[indiceTopo]); 
             indiceTopo--;
         }
         System.out.println("\n -- Tudo desempilhado -- \n");
-     }
+     }}
 
     // Função para ver o topo da pilha
     public static int topo() {

@@ -1,3 +1,4 @@
+package pilha;
 public class Binario {
     
     public static int N = 8; // Binário 

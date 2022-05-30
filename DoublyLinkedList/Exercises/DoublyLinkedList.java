@@ -1,5 +1,5 @@
-package Exercises;
-import Node2.No;
+package DoublyLinkedList.Exercises;
+import DoublyLinkedList.Node2.No;
 
 class DoublyLinkedList {
 

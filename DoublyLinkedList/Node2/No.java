@@ -1,4 +1,4 @@
-package Node2;
+package DoublyLinkedList.Node2;
 
 public class No {
     

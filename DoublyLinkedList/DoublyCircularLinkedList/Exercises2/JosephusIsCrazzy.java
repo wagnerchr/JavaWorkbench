@@ -1,5 +1,5 @@
-package DoublyCircularLinkedList.Exercises2;
-    import Node2.No;
+package DoublyLinkedList.DoublyCircularLinkedList.Exercises2;
+    import DoublyLinkedList.Node2.No;
 
 class JosephusisCrazzy {
     static No inicio;

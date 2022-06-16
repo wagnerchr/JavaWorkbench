@@ -15,28 +15,29 @@ public class Binarytree {
         exibir(raiz);
         menor(raiz);
         maior(raiz);
+        System.out.println("--------------");
+        exibeFolhas(raiz);
+        System.out.println("--------------");
+        System.out.println(
+        contaNos(raiz));
     }   
 
 public static void inserir(int x){
-    NoB novo = new NoB(x);
-    
+    NoB novo = new NoB(x); 
     if(raiz == null)
         raiz = novo;
-    
     else{
-        
         NoB temp = raiz;
         boolean inseriu = false;
-        
         while(!inseriu){
-            if(novo.valor <= temp.valor){
+            if(novo.valor <= temp.valor) { // Valores menores esquerda
                 if(temp.esq == null){
                     temp.esq = novo;
                     inseriu = true;
                 }else{
                     temp = temp.esq;
                 }
-            }else{
+            }else{                       // Valores maiores direita
                 if(temp.dir == null){
                     temp.dir = novo;
                     inseriu = true;
@@ -49,13 +50,36 @@ public static void inserir(int x){
 }
 
  public static void exibir(NoB temp){
-    if(temp != null){
-        //TENTE MUDAR A ORDEM DAS 3 LINHAS ABAIXO 
-        exibir(temp.esq);
-        System.out.println(temp.valor);
-        exibir(temp.dir);
-
+    if (raiz == null) 
+        System.out.println("Árvore vazia, não há nada para exibir.");
+    else {
+        if(temp != null){
+            exibir(temp.esq);
+            System.out.println(temp.valor);
+            exibir(temp.dir);
     }
+}}
+
+public static void exibeFolhas(NoB temp) {
+    if (raiz == null) 
+        System.out.println("Árvore vazia, não há nada para exibir.");
+    else {
+        if(temp != null) {
+            exibeFolhas(temp.esq);
+            if(temp.esq == null && temp.dir == null) // Ambos tem de ser null para ter acesso a folha
+                System.out.println(temp.valor);
+            exibeFolhas(temp.dir);
+        }
+        
+    } 
+}
+
+public static int contaNos(NoB temp) {
+    if(temp!=null){
+        return 1+contaNos(temp.esq)+contaNos(temp.dir);
+    }
+    return 0;
+
 }
 
 public static void maior(NoB temp) {

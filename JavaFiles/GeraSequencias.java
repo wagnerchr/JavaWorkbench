@@ -31,12 +31,17 @@ public class GeraSequencias {
             for(int j = 1; j <= qntArquivos; j++) {
 
                 String arquivo = "arq" + j + ".txt";
-                try(BufferedWriter buffWrite = new BufferedWriter(new FileWriter(pasta + "\\" + arquivo, true));) {
+                try(BufferedWriter buffWrite = new BufferedWriter(new FileWriter(pasta + "\\" + arquivo, false));) {
                 
                     // LOOP CRIA SEQUÊNCIA
                     for (int k = 0; k <= qntNumeros; k++) {
                         buffWrite.append(r.nextInt(max - min) + min + "\n");
                     }
+
+                    buffWrite.close();
+
+                    min += intervalo;
+                    max = min + intervalo;
 
                 } catch (IOException e) {
                     e.printStackTrace();

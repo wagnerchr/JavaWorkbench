@@ -8,77 +8,76 @@ import java.io.IOException;
 // Classe para ordenar os arquivos .txt criados pela Classe GeraSequencia
 public class OrdenaSequencia {
 
-    int x;
-
-    
-
-
-
     public void ordenaSequencias(int qntArquivos, int qntNumeros, int[] qntPastas) {
         
         // CRIA MAIN PASTONA ORDENADA
         File pastaOrd = new File("Pasta_Ord");
             if(!pastaOrd.exists())
-            pastaOrd.mkdir();
+                pastaOrd.mkdir();
+        
+        // LOOP PARA CADA PASTA
+            for(int i = 0; i < qntPastas.length; i++) {
+                
+                // LOOP PARA CADA ARQUIVO .TXT 
+                for(int j = 1; j <= qntArquivos; j++) {
 
-        // Ler Pastas
-        for(int i = 0; i < 1; i++) {
-        // Ler Arquivos 
-            for(int j = 1; j <= 1; j++) {
-                // Array para cada arquivo
-                    int[] aray = new int[qntNumeros + 1];
+                   // Criar Array dos numeros do arquivo
 
-                File arquivo = new File("Pasta\\"+qntPastas[i]+"\\arq"+j+".txt");
+                   String lerArquivo = "Pasta\\"+qntPastas[i]+"\\arq"+(j)+".txt";
 
-                try(BufferedReader buffRead = new BufferedReader(new FileReader(arquivo))) {
-                    String linha; 
-                    while((linha = buffRead.readLine()) != null ) {
-                        aray[x] = Integer.parseInt(linha);
-                        x++;
-                    }
+                   try(BufferedReader buffRead = new BufferedReader(
+                        new FileReader(lerArquivo))) {
+                            // Variables
+                                String linha;
+                                int[] arr = new int[qntNumeros + 1];
+                                int x = 0;
+                            // While Loop to read the entire .txt
+                            while((linha = buffRead.readLine()) != null) {
+                                arr[x] = Integer.parseInt(linha);
+                                x++;
+                            }
+                            // Organiza Array e o Cria
+                            // Pastas
+                                File pasta =  new File(pastaOrd+"\\"+qntPastas[i]);
+                                    if(!pasta.exists())
+                                        pasta.mkdir();
+                            // Arquivos
+                                String arquivo = "arq"+ j + "_ord.txt";
 
-                    organizaArray(aray, qntPastas[i], i);
+                            int[] arrOrganizado = organizeArray(arr);
 
-                } catch(IOException e) {
-                    e.printStackTrace();
-                } 
-               
+                            try(BufferedWriter buffWrite = new BufferedWriter(
+                            new FileWriter(pasta+"\\"+arquivo))) {
+                                for(int a : arrOrganizado) {
+                                
+                                        buffWrite.append(a + "\n");
+                                }}catch(IOException e) {
+                                    e.printStackTrace();
+                                }
+                        } catch(IOException e) {
+                            e.printStackTrace();
+                        }
+                   
+                }
             }
+}
 
+    private static int[] organizeArray(int[] arr) {
 
-        } 
-    }
-
-    private void organizaArray(int[] arr, int qntPastas, int i) {
-
-        for(int j = 0; j < arr.length; j++) {
-            for(int k = 0; k < j; k++) {
-                if(arr[j] < arr[k]) {
-                    int temp = arr[j];
-                    arr[j] = arr[k];
-                    arr[k] = temp;
+        for(int i = 0; i < arr.length; i++) {
+            for(int j = (i+1); j < arr.length; j++) {
+                
+                int temp = 0;
+                if(arr[i] > arr[j]) {
+                    
+                    temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
                 }
             }
         }
-        criaArquivo(arr, qntPastas, i);
-    }
+        return arr;
+    } 
 
-    private void criaArquivo(int[] arr, int qntPastas, int i) {
-        // Cria Pasta
-            File subPastaOrd = new File("Pasta_Ord\\"+qntPastas);
-                if(!subPastaOrd.exists())
-                    subPastaOrd.mkdir();
-        // Arquivo foda
-            String arquivoOrd = ("arq" + (i+1) + "_ord.txt");
-        try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter(subPastaOrd + "\\" + arquivoOrd, false));) {    
-         
-        // // Buffered Feliz
-            for(int j = 0; j < arr.length; j++) {
-                buffWrite.append(arr[j]+"\n");
-            }
-            buffWrite.close();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
+    

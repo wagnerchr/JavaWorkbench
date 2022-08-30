@@ -3,9 +3,13 @@ package Atv05;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -24,7 +28,8 @@ public class Main {
     }
 
     public static void criarArray(String file, ArrayList lista) {
-        try(BufferedReader br = new BufferedReader(new FileReader(file))) {
+        try( /*BufferedReader br = new BufferedReader(new FileReader(file)*/
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
 
             br.readLine(); // Pulando primeira linha do arquivo
             String linha;
@@ -48,9 +53,10 @@ public class Main {
 
     public static void escreverArquivo(ArrayList lista) {
         
-        File file = new File("dados_ordenados.txt");
+        File file = new File("dados_ordenados.csv");
 
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+        try(/*BufferedWriter bw = new BufferedWriter(new FileWriter(file))*/
+            OutputStreamWriter bw =  new OutputStreamWriter(new FileOutputStream(file), "UTF-8")) {
             for(int i = 0; i < lista.size(); i++) {
                 bw.append(lista.get(i).toString()+"\n");
             }

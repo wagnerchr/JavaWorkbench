@@ -1,6 +1,7 @@
 package Atv05;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.lang.reflect.Field;
 
 public class Cadastro implements Comparable<Cadastro> {
 
@@ -71,7 +72,26 @@ public class Cadastro implements Comparable<Cadastro> {
     }
 
     public String toString() {
-        return this.nome + " " + this.idade;
+        StringBuilder result = new StringBuilder();
+    
+        // Valores de Cadastro
+        Field[] fields = this.getClass().getDeclaredFields();
+
+        // Printando os valores
+        for (Field field : fields ) {
+            result.append(" ");
+            try {
+                // result.append(field.getName() ); // Nome dos campos
+                result.append(field.get(this) );
+            } catch(IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            result.append(" "); // espaço entre cada dado
+        }
+
+        result.append("\n"); // pula uma linha para cada Cadastro
+        
+        return result.toString();
     }
 }
 

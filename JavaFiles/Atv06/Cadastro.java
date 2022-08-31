@@ -1,4 +1,4 @@
-package Atv06;
+package atv06;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -52,5 +52,32 @@ public class Cadastro implements Comparable<Cadastro> {
         
         return result.toString();
     }
+    
+    public String getNome() {
+        return this.nome;
+    }
+    
+    public String getCPF() {
+        return this.cpf;
+    }
+    
+    public String getData_nasc() {
+        return this.data_nasc;
+    }
+    
+    public String getEndereco() {
+        return this.endereco;
+    }
+    
+    public int getNumero() {
+        return this.numero;
+    } 
+    
+    public String getCidade() {
+        return this.cidade;
+    }
+    
+    public String getEstado() {
+        return this.estado;
+    }
 }
-

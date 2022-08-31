@@ -1,4 +1,4 @@
-package Atv06;
+package atv06;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,8 +15,11 @@ public class Main {
         
         
     ArrayList<Cadastro> cadastros = new ArrayList<Cadastro>();
+       
+       
        File file = new File("dados_novos.csv");
        String path = file.getAbsolutePath();
+       
     
        
     // Ler o arquivo passado
@@ -24,7 +27,8 @@ public class Main {
         cadastros.sort(null); // Ordena lista
         escreverArquivo(cadastros);
 
-        new Tela();
+        Tela tela = new Tela(cadastros);
+        tela.setVisible(true);
     }
 
     public static void criarArray(String file, ArrayList lista) {
@@ -56,7 +60,7 @@ public class Main {
         File file = new File("dados_ordenados.csv");
 
         try(/*BufferedWriter bw = new BufferedWriter(new FileWriter(file))*/
-            OutputStreamWriter bw =  new OutputStreamWriter(new FileOutputStream(file), "UTF-8")) {
+            OutputStreamWriter bw =  new OutputStreamWriter(new FileOutputStream("C:\\Users\\Pichau\\Documents\\NetBeansProjects\\atv06\\src\\atv06\\" + file), "UTF-8")) {
             for(int i = 0; i < lista.size(); i++) {
                 bw.append(lista.get(i).toString()+"\n");
             }

@@ -19,48 +19,23 @@ public class Tela extends javax.swing.JFrame {
         this.bd = x;
         // Nome, CPF, Data de Nascimento, Endereço, Número, Cidade, Estado
    
+    // Botão do meio que inicia a aplicação
         jButton3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                     count = 0;
-                    jTextPane1.setText(String.valueOf(bd.get(count).getNome()));
-                    jTextPane2.setText(String.valueOf(bd.get(count).getCPF()));
-                    jTextPane3.setText(String.valueOf(bd.get(count).getData_nasc()));
-                    jTextPane4.setText(String.valueOf(bd.get(count).getEndereco()));
-                    jTextPane5.setText(String.valueOf(bd.get(count).getNumero()));
-                    jTextPane6.setText(String.valueOf(bd.get(count).getCidade()));
-                    jTextPane7.setText(String.valueOf(bd.get(count).getEstado()));
+                    atualizaPaineis(count);
                 }  
             });
-        
-        jTextPane1.setText(String.valueOf(bd.get(count).getNome()));
-        jTextPane2.setText(String.valueOf(bd.get(count).getCPF()));
-        jTextPane3.setText(String.valueOf(bd.get(count).getData_nasc()));
-        jTextPane4.setText(String.valueOf(bd.get(count).getEndereco()));
-        jTextPane5.setText(String.valueOf(bd.get(count).getNumero()));
-        jTextPane6.setText(String.valueOf(bd.get(count).getCidade()));
-        jTextPane7.setText(String.valueOf(bd.get(count).getEstado()));
- 
+    
         jButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
                 count ++;
                 if(count > (bd.size() -1)) 
-                    count = 0;
-                
-                
-                System.out.println(count);
-                
-        jTextPane1.setText(String.valueOf(bd.get(count).getNome()));
-        jTextPane2.setText(String.valueOf(bd.get(count).getCPF()));
-        jTextPane3.setText(String.valueOf(bd.get(count).getData_nasc()));
-        jTextPane4.setText(String.valueOf(bd.get(count).getEndereco()));
-        jTextPane5.setText(String.valueOf(bd.get(count).getNumero()));
-        jTextPane6.setText(String.valueOf(bd.get(count).getCidade()));
-        jTextPane7.setText(String.valueOf(bd.get(count).getEstado()));
-                
-                
+                    count = 0;     
+                atualizaPaineis(count);   
             }
         });
         
@@ -71,7 +46,18 @@ public class Tela extends javax.swing.JFrame {
                 count --;
                 if(count < 0) 
                     count = bd.size() - 1;  
-                
+                atualizaPaineis(count);
+            }               
+        }); 
+        
+        
+        
+        
+        
+    } // fecha main
+    
+    // Para atualizar os paineis quando os botões alterarem count
+    public void atualizaPaineis(int count) {
         jTextPane1.setText(String.valueOf(bd.get(count).getNome()));
         jTextPane2.setText(String.valueOf(bd.get(count).getCPF()));
         jTextPane3.setText(String.valueOf(bd.get(count).getData_nasc()));
@@ -79,11 +65,12 @@ public class Tela extends javax.swing.JFrame {
         jTextPane5.setText(String.valueOf(bd.get(count).getNumero()));
         jTextPane6.setText(String.valueOf(bd.get(count).getCidade()));
         jTextPane7.setText(String.valueOf(bd.get(count).getEstado()));
-   
-            }               
-        });
-     
+        
+        jLabel9.setText("Cadastros " + bd.indexOf(bd.get(count)) + "/" + (bd.size() -1));
     }
+
+    
+    
  // Fecha public Tela
 
     /**
@@ -123,6 +110,7 @@ public class Tela extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
 
@@ -234,6 +222,13 @@ public class Tela extends javax.swing.JFrame {
         jButton2.setText("Ant");
 
         jButton3.setText("jButton3");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Cadastros");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -246,18 +241,21 @@ public class Tela extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton3)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(155, 155, 155)
-                .addComponent(jButton3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -269,6 +267,10 @@ public class Tela extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -317,6 +319,7 @@ public class Tela extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

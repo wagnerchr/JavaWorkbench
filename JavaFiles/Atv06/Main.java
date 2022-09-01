@@ -9,19 +9,21 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-public class Main {
-    public static void main(String[] args) {
 
+public class Main {
+    
+    public static void main(String[] args) {
         
+
         
     ArrayList<Cadastro> cadastros = new ArrayList<Cadastro>();
        
+     
+      File file = new File("C:\\Users\\Pichau\\Documents\\NetBeansProjects\\EstruturaDeDados\\src\\atv06\\dados_novos.csv");
+      String path = file.getAbsolutePath();
        
-       File file = new File("dados_novos.csv");
-       String path = file.getAbsolutePath();
        
-    
-       
+  
     // Ler o arquivo passado
         criarArray(path, cadastros);
         cadastros.sort(null); // Ordena lista

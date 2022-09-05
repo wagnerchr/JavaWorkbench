@@ -1,5 +1,5 @@
-# JavaHistoryKeep
-### Repository of programming methods, making in Java
+# Java Workbench 
+### That's a Repository of Programming java methods and other studies in java.
 Meanwhile its done with: 
 - [x] Recursive Functions 
 Data Structures like:

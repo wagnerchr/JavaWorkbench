@@ -1,48 +1,36 @@
 
 package avaliativa01;
 
+import static avaliativa01.TelaAdd.cadastros;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.ImageIcon;
 
-public class Avaliativa01 {
+
+public class Avaliativa01 implements Serializable {
 
    
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException {
         
-    ArrayList<Cadastro> cadastros = new ArrayList<>();
-        
-        //lerArquivos("dados_novos.csv",cadastros);
-        
-       // cadastros.sort(null);
-        
-        Tela tela = new Tela();
-        tela.setResizable(false);
-        tela.setVisible(true);
-        
-        
-    }
-    /*
-    public static void lerArquivos(String arquivo, ArrayList<Cadastro> cadastros) {
-        
-        try( BufferedReader buffRead = new BufferedReader(new FileReader(arquivo, StandardCharsets.ISO_8859_1)); ) {
+       ArrayList<Cadastro> cadastros = new ArrayList<Cadastro>();
+       int count = 0;
             
-         String linha = buffRead.readLine();
-         while (linha != null) {
-             
-            String vet[] = linha.split(",");
-            
-            cadastros.add(new Cadastro(vet[0],  vet[1],  vet[2],  vet[3],  vet[4], vet[5],  String.valueOf(vet[6]), vet[7],));
-            
-        linha = buffRead.readLine();  
-        }
-        buffRead.close();
-            
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
-    }*/
-    
-}
+        // JFRAME
+            TelaExibe tela = new TelaExibe(cadastros, count);
+            tela.setResizable(false);
+            tela.setVisible(true);
+           
+   
+
+}}

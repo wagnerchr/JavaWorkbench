@@ -1,31 +1,39 @@
-
 package avaliativa01;
 
+import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import javax.swing.ImageIcon;
 
+/**
+ * @author cg3018466
+ */
+public class Cadastro implements Serializable {
 
-public class Cadastro {
-    public String nome, 
-                    cpf,
-                    endereco,
-                    cidade,
-                    estado,
-                    foto;
-    public int numero;
-    public float altura;
-    public Date dataNasc;
+    private String nome, endereco, cidade;
+    private Date dataNasc;
+    private float altura;
+    private int numero;
+    private ImageIcon foto;
+    private Estado estado;
 
-    public Cadastro(String nome, String cpf, String endereco, String cidade, String estado, String foto, int numero, float altura) {
+    
+    public Cadastro(String nome){
         this.nome = nome;
-        this.cpf = cpf;
+    }
+    
+    public Cadastro(String nome, String endereco, String cidade, Date dataNasc, float altura, int numero, ImageIcon foto) {
+        this.nome = nome;
         this.endereco = endereco;
         this.cidade = cidade;
-        this.estado = estado;
-        this.foto = foto;
-        this.numero = numero;
+        this.dataNasc = dataNasc;
         this.altura = altura;
-       
+        this.numero = numero;
+        this.foto = foto;
     }
+    
+    
 
     public String getNome() {
         return nome;
@@ -33,14 +41,6 @@ public class Cadastro {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 
     public String getEndereco() {
@@ -59,28 +59,12 @@ public class Cadastro {
         this.cidade = cidade;
     }
 
-    public String getEstado() {
-        return estado;
+    public Date getDataNasc() {
+        return dataNasc;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
-
-    public int getNumero() {
-        return numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
+    public void setDataNasc(Date dataNasc) {
+        this.dataNasc = dataNasc;
     }
 
     public float getAltura() {
@@ -91,13 +75,38 @@ public class Cadastro {
         this.altura = altura;
     }
 
-    public Date getDataNasc() {
-        return dataNasc;
+    public int getNumero() {
+        return numero;
     }
 
-    public void setDataNasc(Date dataNasc) {
-        this.dataNasc = dataNasc;
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
-    
-    
+
+    public ImageIcon getFoto() {
+        return foto;
+    }
+
+    public void setFoto(ImageIcon foto) {
+        this.foto = foto;
+    }
+
+    public Estado getEstado() {
+        return this.estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
+    public Integer getIdade() {
+        GregorianCalendar hoje = new GregorianCalendar();
+        GregorianCalendar nascimento = new GregorianCalendar();
+        if (this.dataNasc != null) {
+            nascimento.setTime(this.dataNasc);
+        }
+        int anoHoje = hoje.get(Calendar.YEAR);
+        int anoNascimento = nascimento.get(Calendar.YEAR);
+        return (anoHoje - anoNascimento);
+    }
 }

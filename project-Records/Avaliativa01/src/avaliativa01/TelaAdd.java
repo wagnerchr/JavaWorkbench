@@ -299,16 +299,21 @@ public class TelaAdd extends javax.swing.JFrame {
         try {
             
             Date date = new SimpleDateFormat("dd/MM/yyyy").parse(this.data_nascText.getText());
-                  
+            
+            ImageIcon icon = (ImageIcon)this.fotoLabel.getIcon();
+           
+            
+
+            
+            
             Cadastro novo = new Cadastro( 
                                         this.nomeText.getText(),
                                         this.enderecoText.getText(),
                                         this.cidadeText.getText(), 
                                         date,
-                                        Float.valueOf(this.alturaText.getText()),                                  
-                                        Integer.valueOf(this.numeroText.getText()),
-                                        //foto
-                                        new ImageIcon(String.valueOf(this.fotoLabel.getIcon()))
+                                        Float.parseFloat(String.valueOf(this.alturaText.getText())),                                  
+                                        Integer.parseInt(String.valueOf(this.numeroText.getText())), 
+                                        icon
                                         );
             cadastros.add(novo);
             cadastros.sort(null);
@@ -319,7 +324,7 @@ public class TelaAdd extends javax.swing.JFrame {
                 count = i;
             }
               
-            this.escrever_arquivo(count); 
+            this.escrever_arquivo(count + 1); 
             System.out.println("INSERIU"); 
    
         }

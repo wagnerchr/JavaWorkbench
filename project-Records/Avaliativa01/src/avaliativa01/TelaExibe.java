@@ -22,10 +22,13 @@ public class TelaExibe extends javax.swing.JFrame {
      
     public static  ArrayList<Cadastro> cadastros = new ArrayList<Cadastro>();
     public static String arquivo =  "bd.txt";
+    public static int cont;
 
     public TelaExibe(ArrayList x, int count) {
         
         initComponents();
+        
+        System.out.println(count);
         this.cadastros = x;
         Atualiza(count);
         // ler_arquivo(bd, arquivo);
@@ -41,7 +44,7 @@ public class TelaExibe extends javax.swing.JFrame {
     // Sem cadastros
         if(cadastros.size()<=0){
             
-             ImageIcon iconDefault = new ImageIcon("default-image.jpg");
+            ImageIcon iconDefault = new ImageIcon("default-image.jpg");
             Image imageDefault = iconDefault.getImage().getScaledInstance(fotoLabel.getWidth(), fotoLabel.getHeight(), java.awt.Image.SCALE_SMOOTH);
             ImageIcon photoDefault = new ImageIcon(imageDefault);
                
@@ -128,7 +131,7 @@ public class TelaExibe extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         selecionado = new javax.swing.JLabel();
-        lerBTN = new javax.swing.JButton();
+        editaCadastro = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -160,12 +163,14 @@ public class TelaExibe extends javax.swing.JFrame {
         jLabel3.setText("Data de Nascimento");
 
         jScrollPane1.setViewportView(enderecoText);
+        enderecoText.setEnabled(false);
 
         jLabel4.setText("Cidade");
 
         jLabel9.setText("Número");
 
         jScrollPane2.setViewportView(numeroText);
+        numeroText.setEnabled(false);
 
         jLabel5.setText("Estado");
 
@@ -186,10 +191,10 @@ public class TelaExibe extends javax.swing.JFrame {
 
         selecionado.setText(".");
 
-        lerBTN.setText("jButton1");
-        lerBTN.addActionListener(new java.awt.event.ActionListener() {
+        editaCadastro.setText("Editar este Cadastro");
+        editaCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lerBTNActionPerformed(evt);
+                editaCadastroActionPerformed(evt);
             }
         });
 
@@ -255,8 +260,8 @@ public class TelaExibe extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(selecionado))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(269, 269, 269)
-                        .addComponent(lerBTN)))
+                        .addGap(280, 280, 280)
+                        .addComponent(editaCadastro)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -295,9 +300,9 @@ public class TelaExibe extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(estadoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(fotoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                .addComponent(lerBTN)
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addComponent(editaCadastro)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(insereCadastro)
                     .addComponent(jButton4))
@@ -310,6 +315,11 @@ public class TelaExibe extends javax.swing.JFrame {
                 .addGap(7, 7, 7))
         );
 
+        nomeText.setEnabled(false);
+        data_nascText.setEnabled(false);
+        cidadeText.setEnabled(false);
+        alturaText.setEnabled(false);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -320,8 +330,10 @@ public class TelaExibe extends javax.swing.JFrame {
 
 // ABRIR TELA INSERE CADASTRO
     private void insereCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insereCadastroActionPerformed
-        new TelaAdd().setVisible(true);
-        this.setVisible(false);      
+        TelaAdd telaadd = new TelaAdd();
+        telaadd.setLocation(this.getLocation()); 
+        telaadd.setVisible(true);
+        this.setVisible(false);            
     }//GEN-LAST:event_insereCadastroActionPerformed
 //
  
@@ -336,35 +348,13 @@ public class TelaExibe extends javax.swing.JFrame {
     }//GEN-LAST:event_fotoLabelMouseClicked
 //
    
-// LER BD.TXT    
-    private void lerBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lerBTNActionPerformed
-                   
-            try {
-                BufferedReader buffRead = new BufferedReader(new FileReader("bd.txt", StandardCharsets.ISO_8859_1)); 
-        
-                String linha = buffRead.readLine();
-                
-                while (linha != null) {    
-
-                    String vet[] = linha.split(" ");
-
-                    // Data
-                        DateFormat formatter = new SimpleDateFormat("d/MM/yyyy");
-                        Date date = (Date)formatter.parse("12/12/2000");
-
-                    // String nome, String endereco, String cidade, Date dataNasc, float altura, int numero, ImageIcon foto
-                    cadastros.add(new Cadastro(vet[0],  vet[1],  vet[2],  date, Float.parseFloat(vet[4]), Integer.parseInt(vet[5]),  new ImageIcon(vet[6])));
-
-                    linha = buffRead.readLine();
-                }
-                 buffRead.close();
-            }
-            
-            catch(Exception e) {
-                System.out.println(e);
-            }                
-        
-    }//GEN-LAST:event_lerBTNActionPerformed
+// ABRIR TELA EDITA CADASTRO 
+    private void editaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editaCadastroActionPerformed
+        TelaEdit telaedit = new TelaEdit(cadastros, count);
+        telaedit.setLocation(this.getLocation());
+        telaedit.setVisible(true);
+        this.setVisible(false);      
+    }//GEN-LAST:event_editaCadastroActionPerformed
 //
     /**
      * @param args the command line arguments
@@ -407,6 +397,7 @@ public class TelaExibe extends javax.swing.JFrame {
     private javax.swing.JTextField alturaText;
     private javax.swing.JTextField cidadeText;
     private javax.swing.JTextField data_nascText;
+    private javax.swing.JButton editaCadastro;
     private javax.swing.JTextPane enderecoText;
     private javax.swing.JTextField estadoText;
     private javax.swing.JLabel fotoLabel;
@@ -423,7 +414,6 @@ public class TelaExibe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton lerBTN;
     private javax.swing.JTextField nomeText;
     private javax.swing.JTextPane numeroText;
     private javax.swing.JLabel selecionado;

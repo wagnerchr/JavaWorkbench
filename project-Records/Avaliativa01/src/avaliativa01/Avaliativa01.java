@@ -24,7 +24,7 @@ public class Avaliativa01 implements Serializable {
     public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException {
         
        ArrayList<Cadastro> cadastros = new ArrayList<Cadastro>();
-       int count = 0;
+       int count;
             
         // JFRAME
             TelaExibe tela = new TelaExibe(cadastros, count);

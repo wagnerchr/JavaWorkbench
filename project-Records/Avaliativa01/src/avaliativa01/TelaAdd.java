@@ -26,12 +26,15 @@ public class TelaAdd extends javax.swing.JFrame {
     
     // Vetor com cadastros
         public static ArrayList<Cadastro> cadastros = new ArrayList<Cadastro>();
-        public static int count = 0;
-
+        public static int count;
         
-    public TelaAdd() {
-         
+    public TelaAdd(ArrayList<Cadastro> cadastros, int count) {
+              
         initComponents();
+        
+        this.cadastros = cadastros; 
+        this.count = count;
+
         setDefaultImage();
         
     }
@@ -46,7 +49,7 @@ public class TelaAdd extends javax.swing.JFrame {
     }
     
 // ESCREVER ARQUIVO
-    public void escrever_arquivo(int count) throws IOException {
+    public void escrever_arquivo() throws IOException {
        
         System.out.println(" escrever_arquivo() - Escreve!");
 
@@ -316,28 +319,41 @@ public class TelaAdd extends javax.swing.JFrame {
                                         icon
                                         );
             cadastros.add(novo);
-            cadastros.sort(null);
-            
-            
-            for(int i=0; i<cadastros.size();i++){
-            if(cadastros.get(i).getNome().compareTo(novo.getNome())==0){
-                count = i;
+                        
+                    
+            for(int i=0; i < cadastros.size(); i++){
+                if(cadastros.get(i).getNome().compareTo(novo.getNome())==0){
+                    count = i;
             }
-              
-            this.escrever_arquivo(count + 1); 
-            System.out.println("INSERIU"); 
-   
-        }
-        
+        } 
+           /* 
+            for (int i = 0; i < cadastros.size() - 1; i++) {
+                for (int j = i + 1; j < cadastros.size(); j++) {
+                    if ( cadastros.get(i).getNome().compareTo(cadastros.get(j).getNome()) ) {
+                        temp = values[j];
+                        values[j] = values[i];
+                        values[i] = temp;
+                    }
+                } } */
+            
+     
+            
         } catch( Exception e) { 
-            
-            System.out.println("deu erro" + e); 
-            
+            System.out.println("deu erro " + e);       
         }  
         
+        try {
+         
+            this.escrever_arquivo(); 
+            System.out.println("INSERIU"); 
         
+        } catch(Exception e) {
+            System.out.println("deu erro try-escrever-arquivo ");
+                   
+        }
         
-      
+         
+    
         
 //   
         
@@ -416,7 +432,7 @@ public class TelaAdd extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 System.out.println(cadastros);
-                new TelaAdd().setVisible(true);
+                new TelaAdd(cadastros, count).setVisible(true);
             }
         });
     }

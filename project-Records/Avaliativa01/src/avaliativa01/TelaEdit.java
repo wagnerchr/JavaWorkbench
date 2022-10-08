@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package avaliativa01;
 
 import static avaliativa01.TelaExibe.cadastros;
@@ -16,13 +13,15 @@ import javax.swing.ImageIcon;
  */
 public class TelaEdit extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaEdit
-     */
+    public static ArrayList<Cadastro> cadastros = new ArrayList<Cadastro>();
+    public static int count;
+    
     public TelaEdit(ArrayList<Cadastro> cadastros, int count) {
+        
         initComponents();
         
-        
+        this.cadastros = cadastros;
+        this.count = count;
      
         // exibe_cadastro(cadastros, count);
         edita_cadastro(cadastros, count);
@@ -270,14 +269,13 @@ public class TelaEdit extends javax.swing.JFrame {
     public void exibe_cadastro(ArrayList<Cadastro> bd, int count) {
         
         try {
-
-        this.nomeText.setText(bd.get(count).getNome());
-        this.enderecoText.setText(bd.get(count).getEndereco());
-        this.cidadeText.setText(bd.get(count).getCidade());
-        this.data_nascText.setText(String.valueOf(bd.get(count).getDataNasc()));
-        this.alturaText.setText(String.valueOf(bd.get(count).getAltura()));
-        this.numeroText.setText(String.valueOf(bd.get(count).getNumero()));
-        this.fotoLabel.setIcon(bd.get(count).getFoto());
+            this.nomeText.setText(bd.get(count).getNome());
+            this.enderecoText.setText(bd.get(count).getEndereco());
+            this.cidadeText.setText(bd.get(count).getCidade());
+            this.data_nascText.setText(String.valueOf(bd.get(count).getDataNasc()));
+            this.alturaText.setText(String.valueOf(bd.get(count).getAltura()));
+            this.numeroText.setText(String.valueOf(bd.get(count).getNumero()));
+            this.fotoLabel.setIcon(bd.get(count).getFoto());
 
     } catch(Exception e) {
         System.out.println(e);
@@ -338,7 +336,7 @@ public class TelaEdit extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaEdit().setVisible(true);
+                new TelaEdit(cadastros, count).setVisible(true);
             }
         });
     }

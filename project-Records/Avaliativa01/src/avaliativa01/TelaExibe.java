@@ -22,14 +22,16 @@ public class TelaExibe extends javax.swing.JFrame {
      
     public static  ArrayList<Cadastro> cadastros = new ArrayList<Cadastro>();
     public static String arquivo =  "bd.txt";
-    public static int cont;
+    public static int count;
 
-    public TelaExibe(ArrayList x, int count) {
+    public TelaExibe(ArrayList cadastros, int count) {
         
         initComponents();
         
         System.out.println(count);
-        this.cadastros = x;
+        this.cadastros = cadastros;
+        this.count = count;
+        
         Atualiza(count);
         // ler_arquivo(bd, arquivo);
         // LER ARQUIVO
@@ -184,8 +186,18 @@ public class TelaExibe extends javax.swing.JFrame {
         jLabel7.setText("Altura");
 
         jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("jButton3");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Excluir esta Cadastro");
 
@@ -330,7 +342,9 @@ public class TelaExibe extends javax.swing.JFrame {
 
 // ABRIR TELA INSERE CADASTRO
     private void insereCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insereCadastroActionPerformed
-        TelaAdd telaadd = new TelaAdd();
+        count++;
+        
+        TelaAdd telaadd = new TelaAdd(cadastros, count);
         telaadd.setLocation(this.getLocation()); 
         telaadd.setVisible(true);
         this.setVisible(false);            
@@ -355,6 +369,21 @@ public class TelaExibe extends javax.swing.JFrame {
         telaedit.setVisible(true);
         this.setVisible(false);      
     }//GEN-LAST:event_editaCadastroActionPerformed
+
+    
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        count++;
+       if(count > cadastros.size() - 1)
+           count = 0;
+        Atualiza(count);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+         count--;
+       if(count > cadastros.size() - 1)
+           count = 0;
+        Atualiza(count);
+    }//GEN-LAST:event_jButton2ActionPerformed
 //
     /**
      * @param args the command line arguments

@@ -3,37 +3,33 @@ package avaliativa01;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 
 public class TelaAdd extends javax.swing.JFrame {
     
-    // Vetor com cadastros
-        public static ArrayList<Cadastro> cadastros = new ArrayList<Cadastro>();
-        public static int count;
-        
-    public TelaAdd(ArrayList<Cadastro> cadastros, int count) {
+   
+    public static ArrayList<Cadastro> cadastros = new ArrayList<Cadastro>();
+               
+    public TelaAdd(ArrayList<Cadastro> cadastros) {
               
         initComponents();
         
         this.cadastros = cadastros; 
-        this.count = count;
+
 
         setDefaultImage();
         
@@ -46,29 +42,52 @@ public class TelaAdd extends javax.swing.JFrame {
             Image imageDefault = iconDefault.getImage().getScaledInstance(fotoLabel.getWidth(), fotoLabel.getHeight(), java.awt.Image.SCALE_SMOOTH);
             ImageIcon photoDefault = new ImageIcon(imageDefault);
             fotoLabel.setIcon(photoDefault);
+      
+        try( BufferedReader br = new BufferedReader(new FileReader("estados.txt")) ) {
+        
+            String linha;     
+            
+            while ( (linha = br.readLine() ) != null) {
+                
+                
+                String vet[] = linha.split("#");               
+                String sigla = vet[0];
+                       
+                estadoChooser.addItem(sigla);
+                
+            }
+            
+            br.close();
+        } catch(Exception e) {
+            System.out.println(e);
+        }      
     }
+    
     
 // ESCREVER ARQUIVO
     public void escrever_arquivo() throws IOException {
-       
-        System.out.println(" escrever_arquivo() - Escreve!");
-
-        try(BufferedWriter buffWrite = new BufferedWriter(new FileWriter("bd.txt", StandardCharsets.ISO_8859_1, true))) {
-  
-            for (int i = 0; i < cadastros.size(); i++) {
-     
-                buffWrite.append(cadastros.get(i).toString() + "\n");
-            }
-            buffWrite.close();
+                   
+        try {
             
-        } catch (Exception e) {
-            System.out.println(e);
+            FileOutputStream writeData = new FileOutputStream("bd.txt");
+            
+            ObjectOutputStream writeStream = new ObjectOutputStream(writeData);
+
+            writeStream.writeObject(cadastros);
+            writeStream.flush();
+            writeStream.close();
+
+            System.out.println(cadastros.get(0).getEstado());         
+        } catch (IOException e) {
+            e.printStackTrace();
         } finally {
-            new TelaExibe(cadastros, count).setVisible(true);
+            new TelaExibe(cadastros).setVisible(true);
             this.setVisible(false);
         }
-    }   
+         
+    }    
     
+    // MUCHO TEXTO 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -83,7 +102,6 @@ public class TelaAdd extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         cidadeText = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        estadoText = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         alturaText = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -98,6 +116,7 @@ public class TelaAdd extends javax.swing.JFrame {
         numeroText = new javax.swing.JTextPane();
         fotoLabel = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        estadoChooser = new javax.swing.JComboBox<>();
 
         jLabel1.setText("jLabel1");
 
@@ -115,18 +134,6 @@ public class TelaAdd extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        nomeText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomeTextActionPerformed(evt);
-            }
-        });
-
-        data_nascText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                data_nascTextActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Nome");
 
@@ -163,16 +170,18 @@ public class TelaAdd extends javax.swing.JFrame {
         jScrollPane2.setViewportView(numeroText);
 
         fotoLabel.setText("                             Escolher Foto");
-        fotoLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                fotoLabelMouseClicked(evt);
-            }
-        });
 
         jButton1.setText("Escolher Foto");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        estadoChooser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
+        estadoChooser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                estadoChooserActionPerformed(evt);
             }
         });
 
@@ -198,9 +207,6 @@ public class TelaAdd extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(fotoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(28, 28, 28)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,10 +226,6 @@ public class TelaAdd extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel5)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(estadoText, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel2)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(nomeText, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -231,11 +233,19 @@ public class TelaAdd extends javax.swing.JFrame {
                                                 .addComponent(jLabel9)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel4)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(cidadeText, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                    .addComponent(jLabel5)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(estadoChooser, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                    .addComponent(jLabel4)
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(cidadeText, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -245,6 +255,11 @@ public class TelaAdd extends javax.swing.JFrame {
                 .addComponent(countLabel)
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(fotoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -269,14 +284,11 @@ public class TelaAdd extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(cidadeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(estadoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(fotoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                            .addComponent(estadoChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(insereCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -291,7 +303,7 @@ public class TelaAdd extends javax.swing.JFrame {
 
 // CANCELA INSERÇÃO
     private void prevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevButtonActionPerformed
-        new TelaExibe(cadastros, count).setVisible(true);
+        new TelaExibe(cadastros).setVisible(true);
         this.setVisible(false);       
     }//GEN-LAST:event_prevButtonActionPerformed
 //
@@ -305,10 +317,6 @@ public class TelaAdd extends javax.swing.JFrame {
             
             ImageIcon icon = (ImageIcon)this.fotoLabel.getIcon();
            
-            
-
-            
-            
             Cadastro novo = new Cadastro( 
                                         this.nomeText.getText(),
                                         this.enderecoText.getText(),
@@ -318,60 +326,65 @@ public class TelaAdd extends javax.swing.JFrame {
                                         Integer.parseInt(String.valueOf(this.numeroText.getText())), 
                                         icon
                                         );
-            cadastros.add(novo);
+            
+            Estado novoEstado = new Estado();     
+            
+            novoEstado.setSigla(String.valueOf(this.estadoChooser.getSelectedItem()) );
+            novoEstado.setNome(verNomeEstado(String.valueOf(this.estadoChooser.getSelectedItem())) );
                         
-                    
-            for(int i=0; i < cadastros.size(); i++){
-                if(cadastros.get(i).getNome().compareTo(novo.getNome())==0){
-                    count = i;
-            }
-        } 
-           /* 
-            for (int i = 0; i < cadastros.size() - 1; i++) {
-                for (int j = i + 1; j < cadastros.size(); j++) {
-                    if ( cadastros.get(i).getNome().compareTo(cadastros.get(j).getNome()) ) {
-                        temp = values[j];
-                        values[j] = values[i];
-                        values[i] = temp;
-                    }
-                } } */
-            
-     
-            
+            cadastros.add(novo);
+            cadastros.get(0).setEstado(novoEstado);
+                     
+            System.out.println("Adicionado!");      
+
+  
         } catch( Exception e) { 
             System.out.println("deu erro " + e);       
         }  
         
-        try {
-         
-            this.escrever_arquivo(); 
-            System.out.println("INSERIU"); 
-        
-        } catch(Exception e) {
-            System.out.println("deu erro try-escrever-arquivo ");
-                   
+        // Escrever arquivo
+            try {
+
+                this.escrever_arquivo(); 
+                System.out.println("INSERIU"); 
+
+            } catch(Exception e) {
+                System.out.println("deu erro try-escrever-arquivo ");
+
+            }   
+    }//GEN-LAST:event_insereCadastroActionPerformed
+//
+    
+// VER NOME ESTADO PELA SIGLA    
+    public String verNomeEstado(String x) {
+ 
+        System.out.println(x);
+           
+       try( BufferedReader br = new BufferedReader(new FileReader("estados.txt")) ) {
+                
+        String linha; 
+ 
+        while ( (linha = br.readLine() ) != null) {
+ 
+                String vet[] = linha.split("#");               
+                String sigla = vet[0];
+                String estado = vet[1];
+                
+                if(sigla.equals(x)) {                  
+                    return estado;               
+            }          
         }
         
-         
-    
+        br.close();
+
+       } catch(Exception e) {
+           System.out.println(e);
+       }
         
-//   
-        
-    }//GEN-LAST:event_insereCadastroActionPerformed
-
-    private void nomeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomeTextActionPerformed
-
-    private void data_nascTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_data_nascTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_data_nascTextActionPerformed
-
-// ESCOLHER IMAGEM/FOTO
-    private void fotoLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fotoLabelMouseClicked
-     
-    }//GEN-LAST:event_fotoLabelMouseClicked
-
+       return "Não achou";
+    }
+//    
+      
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
         // Escolher arquivo
@@ -399,6 +412,10 @@ public class TelaAdd extends javax.swing.JFrame {
             e.printStackTrace();
         }}
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void estadoChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadoChooserActionPerformed
+        
+    }//GEN-LAST:event_estadoChooserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -432,7 +449,7 @@ public class TelaAdd extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 System.out.println(cadastros);
-                new TelaAdd(cadastros, count).setVisible(true);
+                new TelaAdd(cadastros).setVisible(true);
             }
         });
     }
@@ -444,7 +461,7 @@ public class TelaAdd extends javax.swing.JFrame {
     private javax.swing.JLabel countLabel;
     private javax.swing.JTextField data_nascText;
     private javax.swing.JTextPane enderecoText;
-    private javax.swing.JTextField estadoText;
+    private javax.swing.JComboBox<String> estadoChooser;
     private javax.swing.JLabel fotoLabel;
     private javax.swing.JButton insereCadastro;
     private javax.swing.JButton jButton1;

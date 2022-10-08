@@ -1,6 +1,8 @@
 package avaliativa01;
 
-public class Estado {
+import java.io.Serializable;
+
+public class Estado implements Serializable {
 
     private String nome;
     private String sigla;

@@ -25,14 +25,15 @@ public class TelaAdd extends javax.swing.JFrame {
     public static ArrayList<Cadastro> cadastros = new ArrayList<Cadastro>();
                
     public TelaAdd(ArrayList<Cadastro> cadastros) {
-              
+             
+        this.setResizable(false);
         initComponents();
         
         this.cadastros = cadastros; 
 
 
         setDefaultImage();
-        
+            
     }
     
     public void setDefaultImage() {
@@ -43,6 +44,7 @@ public class TelaAdd extends javax.swing.JFrame {
             ImageIcon photoDefault = new ImageIcon(imageDefault);
             fotoLabel.setIcon(photoDefault);
       
+            
         try( BufferedReader br = new BufferedReader(new FileReader("estados.txt")) ) {
         
             String linha;     
@@ -87,7 +89,7 @@ public class TelaAdd extends javax.swing.JFrame {
          
     }    
     
-    // MUCHO TEXTO 
+// MUCHO TEXTO 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -333,7 +335,7 @@ public class TelaAdd extends javax.swing.JFrame {
             novoEstado.setNome(verNomeEstado(String.valueOf(this.estadoChooser.getSelectedItem())) );
                         
             cadastros.add(novo);
-            cadastros.get(0).setEstado(novoEstado);
+            cadastros.get(cadastros.size() - 1).setEstado(novoEstado);
                      
             System.out.println("Adicionado!");      
 

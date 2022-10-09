@@ -36,8 +36,7 @@ public class Avaliativa01 implements Serializable {
                 if(cadastros == null) {
                     System.out.println("Nenhum cadastro encontrado");
                 }
-                // ArrayList<Person> people2 = (ArrayList<Person>) readStream.readObject();
-
+               
                 readStream.close();   
 
             } catch (Exception e) {
@@ -46,7 +45,7 @@ public class Avaliativa01 implements Serializable {
        
         // JFRAME
             TelaExibe tela = new TelaExibe(cadastros);
-            tela.setResizable(false);
+            // tela.setResizable(false);
             tela.setVisible(true);
 
 }}

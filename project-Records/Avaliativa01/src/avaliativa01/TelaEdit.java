@@ -11,12 +11,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -74,8 +75,6 @@ public class TelaEdit extends javax.swing.JFrame {
 
         jLabel9.setText("Número");
 
-        selecionado.setText(".");
-
         lerBTN.setText("jButton1");
         lerBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,7 +127,7 @@ public class TelaEdit extends javax.swing.JFrame {
                         .addComponent(alertLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(81, 81, 81))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
+                        .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lerBTN)
@@ -176,7 +175,7 @@ public class TelaEdit extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(selecionado)
-                        .addContainerGap(696, Short.MAX_VALUE))
+                        .addContainerGap(744, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(salvaCadastro)
@@ -190,7 +189,7 @@ public class TelaEdit extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(selecionado)
-                .addGap(8, 8, 8)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(fotoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -356,11 +355,19 @@ public class TelaEdit extends javax.swing.JFrame {
             this.enderecoText.setText(cadastros.get(count).getEndereco());
             this.cidadeText.setText(cadastros.get(count).getCidade());
             
-            /*
-            Date date = new SimpleDateFormat("dd/MM/yyyy").parse(String.valueOf(cadastros.get(count).getDataNasc()) );                             
-            this.data_nascText.setText(String.valueOf(date));
-            */
-            this.data_nascText.setText(String.valueOf(cadastros.get(count).getDataNasc()));
+             
+            Date date = cadastros.get(count).getDataNasc(); // Data do bd       
+            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Brazil/West"));           
+            cal.setTime(date);
+            
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH) + 1;
+            int day = cal.get(Calendar.DAY_OF_MONTH) + 1;
+            
+           // System.out.println(day+"/"+month"/"+year);
+            
+            this.data_nascText.setText(day+"/"+month+"/"+year );
+            
             this.alturaText.setText(String.valueOf(cadastros.get(count).getAltura()));
             this.numeroText.setText(String.valueOf(cadastros.get(count).getNumero()));  
             

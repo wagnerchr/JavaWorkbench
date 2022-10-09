@@ -26,7 +26,7 @@ public class Avaliativa01 implements Serializable {
     public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException, ParseException {
         
        ArrayList<Cadastro> cadastros = new ArrayList<Cadastro>();      
-       System.out.println("lendoa arquivo...");
+       System.out.println("lendo arquivo...");
         
         try ( FileInputStream readData = new FileInputStream("bd.txt") ) {
 

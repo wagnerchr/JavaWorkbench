@@ -1,6 +1,9 @@
 
 package avaliativa01;
 
+import static avaliativa01.TelaAdd.cadastros;
+import static avaliativa01.TelaExibe.cadastros;
+import static avaliativa01.TelaExibe.count;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -11,13 +14,15 @@ import javax.swing.JRootPane;
 public class TelaAlert extends javax.swing.JFrame {
     
     ArrayList<Cadastro> cadastros = new ArrayList<Cadastro>();
+    TelaExibe telaExibe = new TelaExibe(cadastros);
     
     int count;
 
-    public TelaAlert(ArrayList<Cadastro> cadastros, int count) {
+    public TelaAlert(ArrayList<Cadastro> cadastros, int count, TelaExibe telaExibe) {
         
         initComponents();
             
+        this.telaExibe = telaExibe;
         this.setResizable(false);
         this.cadastros = cadastros;
         this.count = count;
@@ -44,9 +49,12 @@ public class TelaAlert extends javax.swing.JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            new TelaExibe(cadastros).setVisible(false);
+            
+            TelaExibe telaExibe = new TelaExibe(cadastros);  
             this.setVisible(false);
-            new TelaExibe(cadastros).setVisible(true);
+            telaExibe.setLocation(this.getLocation());
+            telaExibe.setVisible(true);
+                   
         }
          
     }    
@@ -81,27 +89,26 @@ public class TelaAlert extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(227, 227, 227)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addGap(267, 267, 267))
             .addGroup(layout.createSequentialGroup()
-                .addGap(128, 128, 128)
+                .addGap(208, 208, 208)
                 .addComponent(cancelBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(183, 183, 183)
                 .addComponent(confirmBtn)
-                .addGap(84, 84, 84))
+                .addContainerGap(211, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelBtn)
-                    .addComponent(confirmBtn))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .addComponent(confirmBtn)
+                    .addComponent(cancelBtn))
+                .addContainerGap())
         );
 
         pack();
@@ -115,7 +122,9 @@ public class TelaAlert extends javax.swing.JFrame {
     
 // EXCLUIR CADASTRO
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
-         
+               
+        telaExibe.setVisible(false);
+        
         try {
             this.cadastros.remove(count);
             escrever_arquivo();           

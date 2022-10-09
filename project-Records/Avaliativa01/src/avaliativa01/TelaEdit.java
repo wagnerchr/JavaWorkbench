@@ -75,7 +75,7 @@ public class TelaEdit extends javax.swing.JFrame {
 
         jLabel9.setText("Número");
 
-        lerBTN.setText("jButton1");
+        lerBTN.setText("Mudar Foto");
         lerBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lerBTNActionPerformed(evt);

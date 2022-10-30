@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
-
+import java.sql.Connection;
 import java.awt.Color;
 import java.nio.file.Files;
 
@@ -12,9 +12,12 @@ import java.nio.file.Files;
  * @author Pichau
  */
 public class Login extends javax.swing.JFrame {
+   
 
     public Login() {
+        
         initComponents();
+        
         this.setVisible(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         

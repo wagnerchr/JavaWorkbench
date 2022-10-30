@@ -4,12 +4,21 @@
  */
 package view;
 
+
+import compromissos2.ConnectionFactory;
 import compromissos2.Hash;
 import compromissos2.Usuario;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.TimeZone;
 import java.util.Date;
+
 import javax.swing.JOptionPane;
+import java.sql.SQLException;
+import java.time.LocalDate;
 
 /**
  *
@@ -17,13 +26,14 @@ import javax.swing.JOptionPane;
  */
 public class Cadastro extends javax.swing.JFrame {
 
+    //public static Connection conn;
+    
+    
     
     public Cadastro() {
+        
         initComponents();
-        
-        
-        
-        
+  
     }
 
  
@@ -135,7 +145,8 @@ public class Cadastro extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    Connection conn;
+    
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
        
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -172,7 +183,7 @@ public class Cadastro extends javax.swing.JFrame {
 
         // ADICIONAR AO MYSQL
         
-           //InsereUsuarioBanco(usuario);
+           InsereUsuarioBanco(usuario);
            
         };
                      
@@ -183,42 +194,47 @@ public class Cadastro extends javax.swing.JFrame {
     
         
 // INSERINDO NOVO OBJETO AO BANCO DE DADOS MYSQL 
- /*   
+ 
     private void InsereUsuarioBanco(Usuario usuario) {                                      
         /*
             // Hashing senha
             Hash hash = new Hash();
+        */
         
-        
-        String query = "insert into pessoas values(?,?,?,?)";
+        // nome, data_nasc, endereco, telefone, email, senha
+        String query = "insert into cadastro() values(?,?,?,?,?,?,?)";
         PreparedStatement ps;     
                
         try {
-            
-        // CRIPTOGRAFAR SENHA
-            String senha = usuario.getSenha();
-            
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-           senha = new String(Utils.hexRepresentation(md.digest(senha.getBytes("UTF-8"))));
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            ConnectionFactory cf = new ConnectionFactory();
+            conn = cf.getConnection();
+            conn.setAutoCommit(false);
+            conn.setAutoCommit(false);
 
-        try {
-            con = ConnectionFactory.getConnection();
-            con.setAutoCommit(false);
-
-            ps = con.prepareStatement(query);
-            ps.setInt(1, id);
-            ps.setString(2, nome);
-            ps.setString(3, nascimento);
-            ps.setString(4, senha);
+             /*
+            
+                // TRAMPO PRA COLOCAR DATA NO MYSQL
+                
+                SimpleDateFormat formatter = new SimpleDateFormat();
+               */ 
+             
+            String dataSQL = ConvertData(usuario.getData_nasc());
+            System.out.println("Entro ");  
+               
+                
+            ps = conn.prepareStatement(query);
+            ps.setString(1, null);
+            ps.setString(2, usuario.getNome());
+            ps.setString(3, dataSQL);
+            ps.setString(4, usuario.getNome());
+            ps.setString(5, usuario.getTelefone());
+            ps.setString(6, usuario.getEmail());
+            ps.setString(7, usuario.getSenha());
+                  
             ps.execute();
-
-            con.commit();
+            conn.commit();
             ps.close();
+            
 
             JOptionPane.showMessageDialog(null, "Cadastro feito com sucesso!");
 
@@ -228,7 +244,25 @@ public class Cadastro extends javax.swing.JFrame {
     
     
     }//GEN-LAST:event_btnCadastrarActionPerformed
-    */
+    
+    public String ConvertData(Date data) {
+        
+        String FORMATO_ANTIGO = "dd/MM/yyyy";
+        // String SQL_FORMATO = "yyyy-MM-dd";
+            
+        SimpleDateFormat sdf = new SimpleDateFormat(FORMATO_ANTIGO);
+            
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+        cal.setTime(data);
+
+        int ano = cal.get(Calendar.YEAR);
+        int mes = cal.get(Calendar.MONTH);
+        int dia = cal.get(Calendar.DAY_OF_MONTH);
+        
+        String dataSQL = ano + "-" + mes + "-" + dia;
+        return dataSQL;
+    }
+    
     /**
      * @param args the command line arguments
      */

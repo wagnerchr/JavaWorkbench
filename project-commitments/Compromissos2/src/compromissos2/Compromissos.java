@@ -19,7 +19,7 @@ public class Compromissos {
         Connection conn = null;
         
         try {
-            
+            System.out.println("Conectando ao MySQL... ");
             String url = "jdbc:mysql://localhost/compromissos?user=root&password=123456";
             conn = DriverManager.getConnection(url);
             

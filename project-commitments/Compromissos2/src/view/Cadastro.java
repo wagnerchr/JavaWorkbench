@@ -209,7 +209,7 @@ public class Cadastro extends javax.swing.JFrame {
             ConnectionFactory cf = new ConnectionFactory();
             conn = cf.getConnection();
             conn.setAutoCommit(false);
-            conn.setAutoCommit(false);
+            
 
              /*
             
@@ -220,13 +220,12 @@ public class Cadastro extends javax.swing.JFrame {
              
             String dataSQL = ConvertData(usuario.getData_nasc());
             System.out.println("Entro ");  
-               
-                
+                        
             ps = conn.prepareStatement(query);
             ps.setString(1, null);
             ps.setString(2, usuario.getNome());
             ps.setString(3, dataSQL);
-            ps.setString(4, usuario.getNome());
+            ps.setString(4, usuario.getEndereco());
             ps.setString(5, usuario.getTelefone());
             ps.setString(6, usuario.getEmail());
             ps.setString(7, usuario.getSenha());

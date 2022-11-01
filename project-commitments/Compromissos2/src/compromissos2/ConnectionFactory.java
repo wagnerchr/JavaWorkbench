@@ -6,9 +6,6 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
     public static Connection getConnection() throws SQLException {
-
-        
-
         
         String url = "jdbc:mysql://localhost:3306/compromissos?useSSL=false";
         String user = "root";

@@ -134,4 +134,30 @@ DESCRIBE cadastro;
 INSERT INTO cadastro VALUES(NULL, "WAqRR", "Wagner Christos", "1978-12-12", "Uma avenida ai", "1233322", "email@email", "senha daora");
 SELECT * FROM cadastro;
 
+# ----------- INSERTS ----------
+
+DESCRIBE cadastro;
+
+INSERT INTO cadastro VALUES(NULL, "WAqRR", "Wagner Christos", "1978-12-12", "Uma avenida ai", "1233322", "email@email", "senha daora");
+INSERT INTO cadastro VALUES(NULL, "aaaaaa", "Nome nome nome", "2000-10-12", "Uma avenida ai", "12333222", "email2@email", "senha daora");
+INSERT INTO cadastro VALUES(NULL, "'-'", "Wagner Christos", "1978-12-12", "Uma avenida ai", "123332222", "email3@email", "senha daora");
+
+DESCRIBE compromisso;
+
+INSERT INTO compromisso VALUES(NULL, "Faculdade", "É O GRUPO DA FACULDADE po", "2022-11-10 23:24:24", "2024-06-01 00:30:02");
+INSERT INTO compromisso VALUES(NULL, "Família", "aaaaaaaaaaaaa", "2023-11-10 23:24:24", "2024-06-01 00:30:02");
+INSERT INTO compromisso VALUES(NULL, "dos cria", NULL, "2022-11-10 23:24:24", "2024-06-01 00:30:02");
+
+SELECT * FROM compromisso;
+
+DESCRIBE cadastro_compromisso;
+
+INSERT INTO cadastro_compromisso VALUES(1, 4);
+
+SELECT * FROM cadastro_compromisso;
+
+SELECT * from compromisso cm 
+	INNER JOIN cadastro_compromisso cc ON cm.id = cc.compromisso_id
+    INNER JOIN cadastro c ON cc.cadastro_id = c.id
+		WHERE cc.cadastro_id = 1;
 

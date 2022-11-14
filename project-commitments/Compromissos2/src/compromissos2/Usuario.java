@@ -7,17 +7,24 @@ import java.util.GregorianCalendar;
 
 public class Usuario {
     
-    private String nome, endereco, telefone, email, senha, senhaConfirm;
+    private String nome, login, endereco, telefone, email, senha, senhaConfirm;
     private Date data_nasc;
 
-    public Usuario(String nome, Date data_nasc, String endereco, String telefone, String email, String senha, String senhaConfirm) {
+    public Usuario(String nome, String login, Date data_nasc, String endereco, String telefone, String email, String senha, String senhaConfirm) {
         this.nome = nome;
+        this.login = login;
         this.data_nasc = data_nasc;
         this.endereco = endereco;
         this.telefone = telefone;
         this.email = email;
         this.senha = senha;
         this.senhaConfirm = senhaConfirm;
+    }
+    
+    // Sobrecarga
+    public Usuario(String login, String senha) {
+        this.login = login;
+        this.senha = senha;
     }
 
     public String getNome() {
@@ -26,6 +33,14 @@ public class Usuario {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getEndereco() {

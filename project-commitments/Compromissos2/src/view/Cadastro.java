@@ -55,6 +55,8 @@ public class Cadastro extends javax.swing.JFrame {
         labelTelefone = new javax.swing.JLabel();
         labelEmail = new javax.swing.JLabel();
         labelSenha = new javax.swing.JLabel();
+        textLogin = new javax.swing.JTextField();
+        labelLogin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,6 +79,10 @@ public class Cadastro extends javax.swing.JFrame {
 
         labelSenha.setText("Senha");
 
+        textLogin.setText("jTextField1");
+
+        labelLogin.setText("Login");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,33 +95,51 @@ public class Cadastro extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelTelefone)
                             .addComponent(labelEndereco)
                             .addComponent(textEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
-                            .addComponent(textNome, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelNome))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(labelSenha)
-                            .addComponent(labelEmail)
-                            .addComponent(textTelefone)
-                            .addComponent(textEmail)
-                            .addComponent(textSenha)
-                            .addComponent(textSenhaConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 235, Short.MAX_VALUE)
-                        .addComponent(btnCadastrar)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(textNome, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelNome))
+                                .addGap(112, 112, 112)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelLogin)
+                                    .addComponent(textLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 104, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(labelTelefone)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(labelSenha)
+                                    .addComponent(labelEmail)
+                                    .addComponent(textTelefone)
+                                    .addComponent(textEmail)
+                                    .addComponent(textSenha)
+                                    .addComponent(textSenhaConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCadastrar)))
                         .addGap(120, 120, 120))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(labelNome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(labelNome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelLogin)
+                        .addGap(16, 16, 16)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -124,9 +148,9 @@ public class Cadastro extends javax.swing.JFrame {
                 .addComponent(labelEndereco)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(labelTelefone)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelTelefone)
+                .addGap(24, 24, 24)
                 .addComponent(textTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(labelEmail)
@@ -140,7 +164,7 @@ public class Cadastro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textSenhaConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCadastrar))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
@@ -153,9 +177,10 @@ public class Cadastro extends javax.swing.JFrame {
         
         try {
             
-        String nome, data_nascS, endereco, telefone, email, senha, senhaConfirm;
+        String nome, login, data_nascS, endereco, telefone, email, senha, senhaConfirm;
       
         nome = textNome.getText();
+        login = textLogin.getText();
         data_nascS = textData_nasc.getText();
         endereco = textEndereco.getText();
         telefone = textTelefone.getText();
@@ -179,7 +204,7 @@ public class Cadastro extends javax.swing.JFrame {
         else if( senha.equals(senhaConfirm) ) {
             
             System.out.println("Senhas Iguais!");
-            Usuario usuario = new Usuario(nome, data_nasc, endereco, telefone, email, senha, senhaConfirm);
+            Usuario usuario = new Usuario(nome, login, data_nasc, endereco, telefone, email, senha, senhaConfirm);
 
         // ADICIONAR AO MYSQL
         
@@ -202,7 +227,7 @@ public class Cadastro extends javax.swing.JFrame {
         */
         
         // nome, data_nasc, endereco, telefone, email, senha
-        String query = "insert into cadastro() values(?,?,?,?,?,?,?)";
+        String query = "insert into cadastro() values(?,?,?,?,?,?,?,?)";
         PreparedStatement ps;     
                
         try {
@@ -223,12 +248,13 @@ public class Cadastro extends javax.swing.JFrame {
                         
             ps = conn.prepareStatement(query);
             ps.setString(1, null);
-            ps.setString(2, usuario.getNome());
-            ps.setString(3, dataSQL);
-            ps.setString(4, usuario.getEndereco());
-            ps.setString(5, usuario.getTelefone());
-            ps.setString(6, usuario.getEmail());
-            ps.setString(7, usuario.getSenha());
+            ps.setString(2, usuario.getLogin());
+            ps.setString(3, usuario.getNome());
+            ps.setString(4, dataSQL);
+            ps.setString(5, usuario.getEndereco());
+            ps.setString(6, usuario.getTelefone());
+            ps.setString(7, usuario.getEmail());
+            ps.setString(8, usuario.getSenha());
                   
             ps.execute();
             conn.commit();
@@ -302,12 +328,14 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelEmail;
     private javax.swing.JLabel labelEndereco;
+    private javax.swing.JLabel labelLogin;
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelSenha;
     private javax.swing.JLabel labelTelefone;
     private javax.swing.JTextField textData_nasc;
     private javax.swing.JTextField textEmail;
     private javax.swing.JTextField textEndereco;
+    private javax.swing.JTextField textLogin;
     private javax.swing.JTextField textNome;
     private javax.swing.JTextField textSenha;
     private javax.swing.JTextField textSenhaConfirm;

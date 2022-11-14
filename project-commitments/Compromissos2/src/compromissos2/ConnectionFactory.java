@@ -11,12 +11,11 @@ public class ConnectionFactory {
         String user = "root";
         String password = "123456";
             
-        try {
+        try {      
             
-            Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("Conectando ao MySQL... ");
-            
+            Class.forName("com.mysql.jdbc.Driver");           
         } catch (ClassNotFoundException e) {
+            
             System.out.println(e);
             
         } finally {
